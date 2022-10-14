@@ -20,12 +20,12 @@ export function getUserLocalStorage () {
 
 export async function LoginRequest (email: string, password: string){
     try{
-        const request = await Api.get("token", {
-            auth :{
-                username: email,
-                password: password
-            } 
-        })
+        const request = await Api.post("token", {email, password},{
+            auth: {
+                username: email, password: password
+            }
+        });
+       
 
         return request.data;
     }catch(error){
