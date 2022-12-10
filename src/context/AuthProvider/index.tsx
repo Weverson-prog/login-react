@@ -25,6 +25,9 @@ export const AuthProvider = ({ children}: IAuthProvider)=>{
         setUserLocalStorage(payload)
 
     }
+    async function dashboard (){
+        
+    }
 
     function logout(){
         setUser(null)

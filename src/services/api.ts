@@ -3,7 +3,7 @@ import { getUserLocalStorage } from "../context/AuthProvider/util";
 
 
 export const Api = axios.create({
-    baseURL: "http://209.126.82.238:8060/",
+    baseURL: "http://conciliador.sandbox.pratico.tech/",
 })
 
 
@@ -19,3 +19,5 @@ export const Api = axios.create({
         return Promise.reject(error);
     }
 )*/
+
+

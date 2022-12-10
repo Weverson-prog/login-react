@@ -2,6 +2,7 @@ import { Api } from "../../services/api";
 import { IUser } from "./types";
 
 
+
 export function setUserLocalStorage(user: IUser | null){
     localStorage.setItem("u", JSON.stringify(user));
 }
@@ -20,7 +21,7 @@ export function getUserLocalStorage () {
 
 export async function LoginRequest (email: string, password: string){
     try{
-        const request = await Api.post("token", {email, password},{
+        const request = await Api.post("auth", {email, password},{
             auth: {
                 username: email, password: password
             }
@@ -31,4 +32,6 @@ export async function LoginRequest (email: string, password: string){
     }catch(error){
         return null;
     }
+
 }
+
