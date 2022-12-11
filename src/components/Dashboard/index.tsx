@@ -71,11 +71,9 @@ type MenuItem = Required<MenuProps>["items"][number];
 const { Column, ColumnGroup } = Table;
 interface DataType {
   key: React.Key;
-  firstName: string;
+  firstName: Root;
   lastName: string;
-  age: number;
   address: string;
-  tags: string[];
 }
 
 
@@ -379,28 +377,54 @@ console.log(dados)
   const data: DataType[] = [
     {
       key: "1",
-      firstName: "John",
-      lastName: "Brown",
-      age: 32,
+      firstName: dados?.sales_operators_brand[0].brand,
+      lastName: dados?.sales_operators_brand[0].amount,
       address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
     },
     {
       key: "2",
-      firstName: "Jim",
-      lastName: "Green",
-      age: 42,
+      firstName: dados?.sales_operators_brand[1].brand,
+      lastName: dados?.sales_operators_brand[1].amount,
       address: "London No. 1 Lake Park",
-      tags: ["loser"],
     },
     {
       key: "3",
-      firstName: "Joe",
-      lastName: "Black",
-      age: 32,
+      firstName: dados?.sales_operators_brand[2].brand,
+      lastName: dados?.sales_operators_brand[2].amount,
       address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
     },
+    {
+      key: "4",
+      firstName: dados?.sales_operators_brand[3].brand,
+      lastName: dados?.sales_operators_brand[3].amount,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "5",
+      firstName: dados?.sales_operators_brand[4].brand,
+      lastName: dados?.sales_operators_brand[4].amount,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "6",
+      firstName: dados?.sales_operators_brand[5].brand,
+      lastName: dados?.sales_operators_brand[5].amount,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "7",
+      firstName: dados?.sales_operators_brand[6].brand,
+      lastName: dados?.sales_operators_brand[6].amount,
+      address: "Sidney No. 1 Lake Park",
+    },
+    {
+      key: "8",
+      firstName: dados?.sales_operators_brand[7].brand,
+      lastName: dados?.sales_operators_brand[7].amount,
+      address: "Sidney No. 1 Lake Park",
+    },
+
+    
   ];
 
   /*fim tabela*/
@@ -436,7 +460,7 @@ console.log(dados)
   ];
 
   const options1 = {
-    title: "Monthly Coffee Production by Country",
+    title: "Adquirente - Vendas por Operadora",
     vAxis: { title: "Cups" },
     hAxis: { title: "Month" },
     seriesType: "bars",
@@ -535,8 +559,8 @@ console.log(dados)
                         title="Conciliadas Mês"
                         value={dados?.card[0].reconciled_percentage}
                         precision={2}
-                        valueStyle={{ color: "#green" }}
-                        prefix={<ArrowUpOutlined />}
+                        valueStyle={{ color: "#3f8600" }}
+                        prefix={''}
                         suffix="%"
                       />
                     </Card>
@@ -545,10 +569,10 @@ console.log(dados)
                     <Card>
                       <Statistic
                         title="Conciliadas Manual"
-                        value={9.3}
+                        value={dados?.card[0].manual_reconciled}
                         precision={2}
-                        valueStyle={{ color: "#cf1322" }}
-                        prefix={<ArrowDownOutlined />}
+                        valueStyle={{ color: "#3f8600" }}
+                        prefix={''}
                         suffix="%"
                       />
                     </Card>
@@ -557,10 +581,10 @@ console.log(dados)
                     <Card>
                       <Statistic
                         title="Baixas Processadas"
-                        value={9.3}
+                        value={dados?.card[0].net_received}
                         precision={2}
-                        valueStyle={{ color: "#cf1322" }}
-                        prefix={<ArrowDownOutlined />}
+                        valueStyle={{ color: "#3f8600" }}
+                        prefix={''}
                         suffix="%"
                       />
                     </Card>
@@ -569,11 +593,11 @@ console.log(dados)
                     <Card>
                       <Statistic
                         title="Parcelas Pendente OPE"
-                        value={9.3}
+                        value={dados?.card[0].pending_operator_reconciled}
                         precision={2}
-                        valueStyle={{ color: "#cf1322" }}
-                        prefix={<ArrowDownOutlined />}
-                        suffix="%"
+                        valueStyle={{ color: "#3f8600" }}
+                        prefix={''}
+                        suffix=""
                       />
                     </Card>
                   </Col>
@@ -581,11 +605,11 @@ console.log(dados)
                     <Card>
                       <Statistic
                         title="Parcelas Pendente ERP"
-                        value={9.3}
+                        value={dados?.card[0].pending_erp_reconciled}
                         precision={2}
-                        valueStyle={{ color: "#cf1322" }}
-                        prefix={<ArrowDownOutlined />}
-                        suffix="%"
+                        valueStyle={{ color: "#3f8600" }}
+                        prefix={''}
+                        suffix=""
                       />
                     </Card>
                   </Col>
@@ -602,48 +626,23 @@ console.log(dados)
                     {" "}
                     {/*tabela*/}
                     <Table dataSource={data}>
-                      <ColumnGroup title="Name">
-                        <Column
-                          title="First Name"
+                      <ColumnGroup title="Vendas por Bandeira">
+                        <Column            
                           dataIndex="firstName"
                           key="firstName"
                         />
                         <Column
-                          title="Last Name"
                           dataIndex="lastName"
                           key="lastName"
                         />
                       </ColumnGroup>
-                      <Column title="Age" dataIndex="age" key="age" />
+                  
                       <Column
-                        title="Address"
                         dataIndex="address"
                         key="address"
                       />
-                      <Column
-                        title="Tags"
-                        dataIndex="tags"
-                        key="tags"
-                        render={(tags: string[]) => (
-                          <>
-                            {tags.map((tag) => (
-                              <Tag color="blue" key={tag}>
-                                {tag}
-                              </Tag>
-                            ))}
-                          </>
-                        )}
-                      />
-                      <Column
-                        title="Action"
-                        key="action"
-                        render={(_: any, record: DataType) => (
-                          <Space size="middle">
-                            <a>Invite {record.lastName}</a>
-                            <a>Delete</a>
-                          </Space>
-                        )}
-                      />
+                     
+                      
                     </Table>
                   </div>
                   <div className="pizza">
