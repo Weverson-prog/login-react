@@ -71,8 +71,8 @@ type MenuItem = Required<MenuProps>["items"][number];
 const { Column, ColumnGroup } = Table;
 interface DataType {
   key: React.Key;
-  firstName: Root;
-  lastName: string;
+  firstName:string | undefined;
+  lastName: number | undefined;
   address: string;
 }
 
