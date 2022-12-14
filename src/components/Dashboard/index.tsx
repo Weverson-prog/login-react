@@ -320,60 +320,14 @@ export const DASHBOARD = ({
 
 	/*tabela*/
 
-	const data: DataType[] = [
-		
-		{
-			key: "1",
-			firstName: dados?.sales_operators_brand[0].brand,
-			lastName: dados?.sales_operators_brand[0].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[0].brand+".png"} style={{width: "41px"}}/>,
-			
-		},
-		{
-			key: "2",
-			firstName: dados?.sales_operators_brand[1].brand,
-			lastName: dados?.sales_operators_brand[1].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[1].brand+".png"} style={{width: "41px"}} />,
-		},
-		{
-			key: "3",
-			firstName: dados?.sales_operators_brand[2].brand,
-			lastName: dados?.sales_operators_brand[2].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[2].brand+".png"} style={{width: "41px"}}/>,
-		},
-		{
-			key: "4",
-			firstName: dados?.sales_operators_brand[3].brand,
-			lastName: dados?.sales_operators_brand[3].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[3].brand+".png"} style={{width: "41px"}}/>,
-		},
-		{
-			key: "5",
-			firstName: dados?.sales_operators_brand[4].brand,
-			lastName: dados?.sales_operators_brand[4].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[4].brand+".png"} style={{width: "41px"}}/>,
-		},
-		{
-			key: "6",
-			firstName: dados?.sales_operators_brand[5].brand,
-			lastName: dados?.sales_operators_brand[5].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[5].brand+".png"} style={{width: "41px"}}/>,
-		},
-		{
-			key: "7",
-			firstName: dados?.sales_operators_brand[6].brand,
-			lastName: dados?.sales_operators_brand[6].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[6].brand+".png"} style={{width: "41px"}}/>,
-		},
-		{
-			key: "8",
-			firstName: dados?.sales_operators_brand[7].brand,
-			lastName: dados?.sales_operators_brand[7].amount,
-			address: <img src={"/src/assets/img/flags/flags/flags/"+dados?.sales_operators_brand[7].brand+".png"} style={{width: "41px"}}/>,
-		},
-
-
-	];
+	const data: DataType[] = dados? dados.sales_operators_brand.map((operatorBrand, index) => {
+		return {
+		  key: index,
+		  firstName: operatorBrand.brand,
+		  lastName: operatorBrand.amount,
+		  address: <img src={"/src/assets/img/flags/flags/flags/"+operatorBrand.brand+".png"} style={{width: "41px"}}/>,
+		}
+	  }):[]
 
 	/*fim tabela*/
 
@@ -546,7 +500,7 @@ export const DASHBOARD = ({
 									</Card>
 								</Col>
 								<Col span={8}>
-									<Card>
+									<Card style={{ marginTop: '15px'}}>
 										<Statistic
 											title="Baixas Processadas"
 											value={dados?.card[0].net_received}
@@ -559,7 +513,7 @@ export const DASHBOARD = ({
 								</Col>
 
 								<Col span={8}>
-									<Card>
+									<Card style={{ marginTop: '15px'}}>
 										<Statistic
 											title="Parcelas Pendente OPE"
 											value={dados?.card[0].pending_operator_reconciled}
@@ -568,10 +522,10 @@ export const DASHBOARD = ({
 											prefix={''}
 											suffix=""
 										/>
-									</Card>
+									</Card >
 								</Col>
 								<Col span={8}>
-									<Card>
+									<Card style={{ marginTop: '15px'}}>
 										<Statistic
 											title="Parcelas Pendente ERP"
 											value={dados?.card[0].pending_erp_reconciled}
@@ -590,8 +544,8 @@ export const DASHBOARD = ({
 
 
 				<Col>
-					<Card className="table-pizza"
-						style={{
+					<Card className="table-pizza" 
+						style={{ marginTop: '-22px',
 							width: "100%", display: "flex", flexDirection: "row", border: "none",
 							alignItems: "center", justifyContent: "space-between", margin: "0", marginBottom: "-400px",
 						}}>
@@ -633,7 +587,7 @@ export const DASHBOARD = ({
 							</Row>
 						</Content>{" "}
 						{/*fim grafico pizza e tabela*/}
-						<Card className="pizza-main" style={{ width: "100%",  position: "relative", bottom: "600px", left: "1080px", border: "none" }}>
+						<Card className="pizza-main" style={{ width: "100%",  position: "relative", bottom: "600px", left: "1080px", border: "none", marginTop: '-5px' }}>
 										<div className="pizza">
 											{" "}
 											{/*pizza*/}
