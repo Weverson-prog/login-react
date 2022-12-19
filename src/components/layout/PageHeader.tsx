@@ -36,7 +36,10 @@ export function PageHeader() {
         alignItems: "center",
         background: "#1b71da",
         backgroundImage:
-          "linear-gradient(to left,#1b71da, #3c89e3, #3c89e3, #5da0ed, #7eb8f6, #7eb8f6, #9fcfff, #9fcfff, #9fcfff,  #fff)"
+          "linear-gradient(to left,#1b71da, #3c89e3, #3c89e3, #5da0ed, #7eb8f6, #7eb8f6, #9fcfff, #9fcfff, #9fcfff,  #fff)",
+        position: "sticky",
+        top: 0,
+        zIndex: 1
       }}
     >
       <h2
