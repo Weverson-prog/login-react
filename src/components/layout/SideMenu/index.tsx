@@ -5,14 +5,22 @@ import { MenuItems } from "./MenuItems"
 export function SideMenu() {
   const [collapsed, setCollapsed] = useState(false)
   const { Sider } = Layout
-
+  function handleCollapse(value: boolean) {
+    setCollapsed(value)
+  }
   return (
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={value => setCollapsed(value)}
+      onCollapse={value => handleCollapse(value)}
       style={{
-        backgroundImage: "linear-gradient( #fff, #fff )"
+        overflow: "auto",
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        backgroundColor: "white",
+        zIndex: 2
       }}
     >
       <div
