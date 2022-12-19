@@ -1,11 +1,5 @@
-import axios from "axios";
-import { getUserLocalStorage } from "../context/AuthProvider/util";
-
-
-export const Api = axios.create({
-    baseURL: "http://conciliador.sandbox.pratico.tech/",
-})
-
+import axios from "axios"
+export const api = axios.create({ baseURL: "http://conciliador.sandbox.pratico.tech" })
 
 /*Api.interceptors.request.use(
     (config) => {
@@ -19,5 +13,3 @@ export const Api = axios.create({
         return Promise.reject(error);
     }
 )*/
-
-
