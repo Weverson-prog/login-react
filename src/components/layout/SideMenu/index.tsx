@@ -1,3 +1,4 @@
+import logo from "@assets/img/praticoLogo.png"
 import { Layout, Menu } from "antd"
 import { useState } from "react"
 import { MenuItems } from "./MenuItems"
@@ -14,7 +15,7 @@ export function SideMenu() {
       collapsed={collapsed}
       onCollapse={value => handleCollapse(value)}
       style={{
-        overflow: "auto",
+        overflowY: "auto",
         height: "100vh",
         position: "sticky",
         top: 0,
@@ -29,13 +30,15 @@ export function SideMenu() {
           backgroundPosition: "bottom",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          backgroundImage:
-            "url(https://lh3.googleusercontent.com/pw/AL9nZEWUxTUNlLTWhP9d2dyoKpz6ZnF1EWfGTrmAPDeo5893BvPjV9kXY7V72ZmZ02VAGI2KZnrDiqErIjwLfYB8CO49IA_z9XukMOfW2shVEpUParcLjRtuDjgMqsN6oIBxlv7ctt-fkETdJEvRPZNcB2qV=w100-h71-no?authuser=0)",
-          display: "flex",
-          justifyContent: "center"
+          backgroundImage: `url(${logo})`
         }}
       />
-      <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline" items={MenuItems} />
+      <Menu theme="light" defaultSelectedKeys={["home"]} mode="inline" items={MenuItems} />
+      <div
+        style={{
+          height: "48px"
+        }}
+      />
     </Sider>
   )
 }

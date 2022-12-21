@@ -1,20 +1,14 @@
-import { Button, Form, Input, message } from "antd"
-import { useNavigate } from "react-router-dom"
-import "../../assets/css/styles.css"
-import logo from "../../assets/img/pratico_logo_nome_baixo arrumada.png"
-import { useAuth } from "../../context/AuthProvider/useAuth"
+import "@assets/css/styles.css"
+import logo from "@assets/img/praticoLogo.png"
+import { useAuth } from "@context/AuthProvider"
+import { UserTokenMutationProps } from "@context/types"
+import { Button, Form, Input } from "antd"
 
 export const Login = () => {
   const auth = useAuth()
-  const navigate = useNavigate()
-  async function onFinish(values: { email: string; password: string }) {
-    try {
-      await auth.authenticated(values.email, values.password)
-      console.log("logado")
-      return navigate("/")
-    } catch (error) {
-      message.error("Invalid email or Password")
-    }
+
+  function onFinish({ email, password }: UserTokenMutationProps) {
+    auth.logIn({ email, password })
   }
 
   return (
@@ -36,7 +30,15 @@ export const Login = () => {
               <Input.Password placeholder="Password" style={{ borderRadius: "5px" }} />
             </Form.Item>
 
-            <div className="container-login-form-btn">
+            <div
+              className="container-login-form-btn"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
@@ -45,6 +47,7 @@ export const Login = () => {
                 Login
               </Button>
             </div>
+            {/* {isLoading && <LoadingModal />} */}
           </Form>
         </div>
       </div>

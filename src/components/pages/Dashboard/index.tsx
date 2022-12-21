@@ -1,105 +1,46 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Card, Col, Layout, Row, Statistic, Table } from "antd";
-import Column from "antd/lib/table/Column";
-import ColumnGroup from "antd/lib/table/ColumnGroup";
-import { useEffect, useState } from "react";
-import Chart from "react-google-charts";
-import { Root } from "../../../context/AuthProvider/types";
-import { getCard } from "../../../context/AuthProvider/getDash";
-import { OpeAnalytic, OpeSynthetic } from "./OpeList";
-import { ErpAnalytic, ErpSynthetic } from "./ErpList";
-
-
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
+import { Loading } from "@components/layout"
+import { useAuth } from "@context/AuthProvider"
+import { getDashboardInfo } from "@services/api"
+import { useQuery } from "@tanstack/react-query"
+import { Card, Col, Layout, Row, Statistic, Table } from "antd"
+import Chart from "react-google-charts"
+import { OpeAnalytic, OpeSynthetic } from "./OpeList"
 interface CardSalesData {
-  key: React.Key;
-  cardIcon: JSX.Element;
-  cardBrand: string;
-  salesAmount: string;
+  key: React.Key
+  cardIcon: JSX.Element
+  cardBrand: string
+  salesAmount: string
 }
 
 export function Dashboard() {
-  const { Content } = Layout;
-  const [dados, setDados] = useState<Root>();
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth()
+  const { Content } = Layout
+  const { Column, ColumnGroup } = Table
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["dashboard"],
+    queryFn: () => getDashboardInfo(user?.token!)
+  })
 
-  useEffect(() => {
-    async function getDados() {
-      console.log("Fetching data...");
-      const response = await getCard();
-      if (!response) {
-        return;
-      }
-      // After fetching the response, add a createdAt property to it.
-      const data = { ...response, createdAt: new Date() };
-      setDados(data);
-      // cache the response
-      localStorage.setItem("dashboard", JSON.stringify(data));
-      setLoading(false);
-    }
-    // If localStorage has the response, check if it is less than 5 minutes old, if so, use it, otherwise, fetch new data
-    const cachedResponse = localStorage.getItem("dashboard");
-    if (cachedResponse) {
-      const parsedResponse = JSON.parse(cachedResponse);
-      const fiveMinutesAgo = new Date().getTime() - 5 * 60 * 1000;
-      if (new Date(parsedResponse.createdAt).getTime() > fiveMinutesAgo) {
-        console.log("Using cached data...");
-        setDados(parsedResponse);
-        setLoading(false);
-        return;
-      }
-    }
-    getDados();
-  }, []);
-
-  if (loading || !dados) {
+  if (isLoading || !data) return <Loading />
+  if (error) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          color: "#4DBEFF",
-          backgroundColor: "#F0F8FF",
-          textAlign: "center",
-        }}
-      >
-        <LoadingOutlined spin style={{ fontSize: 128 }} />
-        <h1 style={{ marginTop: 32 }}>Carregando...</h1>
-      </div>
-    );
+      <Content>
+        <Card loading={isLoading}>
+          <h1>Erro ao carregar dados</h1>
+        </Card>
+      </Content>
+    )
   }
 
-  console.log(dados);
-
-  const cardSalesData: CardSalesData[] = dados.sales_operators_brand.map(
-    (card, index) => {
-      return {
-        key: index,
-        cardBrand: card.brand,
-        salesAmount: card.amount.toFixed(2),
-        cardIcon: (
-          <img
-            src={"/src/assets/img/flags/flags/flags/" + card.brand + ".png"}
-            style={{ width: "41px" }}
-          />
-        ),
-      };
-    }
-  );
+  const cardSalesData: CardSalesData[] = data.sales_operators_brand.map((card, index) => {
+    return {
+      key: index,
+      cardBrand: card.brand,
+      salesAmount: card.amount.toFixed(2),
+      cardIcon: <img src={"/src/assets/img/flags/flags/flags/" + card.brand + ".png"} style={{ width: "41px" }} />
+    });
   /*edit pizza*/
+  })
   const pieChartOptions = {
     title: "Adquirente - Vendas por Operadora",
     vAxis: { title: "valores" },
@@ -108,7 +49,6 @@ export function Dashboard() {
     series: { 25: { type: "" } },
     width: 600,
     height: 600,
-
   };
 
   const columnChartOptions = {
@@ -117,8 +57,8 @@ export function Dashboard() {
     hAxis: { title: "dias" },
     colors: ["#0000FF", "#00CC1B", "#4DBEFF", "#008011"],
     seriesType: "bars",
-    series: { 30: { type: "" } },
-  };
+    series: { 30: { type: "" } }
+  }
 
   const pieChartData = [
     ["Task", "Hours per Day"],
@@ -134,27 +74,21 @@ export function Dashboard() {
 
   /*fim edit pizza*/
   const columnChartData = [
-    [
-      "dias",
-      "Vendas ERP ",
-      "Conciliadas ERP",
-      "Vendas operadoas ",
-      "Conciliadas operadoas",
-    ],
-    ...dados.sales_erp_daily.map((value, index) => {
+    ["dias", "Vendas ERP ", "Conciliadas ERP", "Vendas operadoas ", "Conciliadas operadoas"],
+    ...data.sales_erp_daily.map((value, index) => {
       return [
         value.dt_sale.substring(value.dt_sale.length - 2, 10),
         value.amount,
-        dados.reconciled_erp_daily[index].amount,
-        dados.sales_operators_daily[index].amount,
-        dados.reconciled_operators_daily[index].amount,
-      ];
-    }),
-  ];
+        data.reconciled_erp_daily[index].amount,
+        data.sales_operators_daily[index].amount,
+        data.reconciled_operators_daily[index].amount
+      ]
+    })
+  ]
 
   return (
     <Content>
-      <Card className="main-cardsmin" style={{ border: "none" }}>
+      <Card className="main-cardsmin" style={{ border: "none" }} loading={isLoading}>
         {/*cards*/}
         <div className="site-statistic-demo-card">
           <Row gutter={16}>
@@ -162,7 +96,7 @@ export function Dashboard() {
               <Card style={{ alignContent: "center", overflow: "initial" }}>
                 <Statistic
                   title="Vendas Processadas"
-                  value={dados?.card[0].sale_amount}
+                  value={data.card[0].sale_amount}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -174,7 +108,7 @@ export function Dashboard() {
               <Card>
                 <Statistic
                   title="Conciliadas Mês"
-                  value={dados?.card[0].reconciled_percentage}
+                  value={data.card[0].reconciled_percentage}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -186,7 +120,7 @@ export function Dashboard() {
               <Card>
                 <Statistic
                   title="Conciliadas Manual"
-                  value={dados?.card[0].manual_reconciled}
+                  value={data.card[0].manual_reconciled}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -198,7 +132,7 @@ export function Dashboard() {
               <Card style={{ marginTop: "15px" }}>
                 <Statistic
                   title="Baixas Processadas"
-                  value={dados?.card[0].net_received}
+                  value={data.card[0].net_received}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -211,7 +145,7 @@ export function Dashboard() {
               <Card style={{ marginTop: "15px" }}>
                 <Statistic
                   title="Parcelas Pendente OPE"
-                  value={dados?.card[0].pending_operator_reconciled}
+                  value={data.card[0].pending_operator_reconciled}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -223,7 +157,7 @@ export function Dashboard() {
               <Card style={{ marginTop: "15px" }}>
                 <Statistic
                   title="Parcelas Pendente ERP"
-                  value={dados?.card[0].pending_erp_reconciled}
+                  value={data.card[0].pending_erp_reconciled}
                   precision={2}
                   valueStyle={{ color: "#3f8600" }}
                   prefix={""}
@@ -283,7 +217,6 @@ export function Dashboard() {
 
               }}
             >
-
               {" "}
               {/*pizza*/}
               <Chart
@@ -361,5 +294,5 @@ export function Dashboard() {
         </Card>
       </Card>
     </Content>
-  );
+  )
 }

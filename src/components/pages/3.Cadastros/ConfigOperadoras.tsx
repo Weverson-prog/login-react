@@ -1,6 +1,6 @@
 import { Button, Card, Checkbox, Layout, Select, Space, Table } from "antd"
 
-import type { CheckboxChangeEvent } from "antd/es/checkbox"
+import type { CheckboxChangeEvent } from "antd/lib/checkbox/"
 
 export function ConfigOperadoras() {
   const { Content } = Layout

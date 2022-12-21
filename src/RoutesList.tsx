@@ -1,5 +1,5 @@
+import * as Page from "@pages/index"
 import { RouteObject } from "react-router-dom"
-import * as Page from "./components/pages"
 
 export const RoutesList: RouteObject[] = [
   {
