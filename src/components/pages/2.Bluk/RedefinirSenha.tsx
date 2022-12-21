@@ -1,3 +1,4 @@
+import logo from "@assets/img/praticoLogo.png"
 import { Button, Card, Input, Layout, Space, Table } from "antd"
 
 export function RedefinirSenha() {
@@ -29,7 +30,7 @@ export function RedefinirSenha() {
     <Content
       className="site-layout-background"
       style={{
-        backgroundImage: "url(" + "" + ")",
+        backgroundImage: `url(${logo})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"

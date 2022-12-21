@@ -1,4 +1,4 @@
-import { Col, Layout, Row } from "antd"
+import { Layout } from "antd"
 
 type WelcomeTextProps = {
   text: string

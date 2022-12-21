@@ -1,4 +1,5 @@
 import { DownloadOutlined } from "@ant-design/icons"
+import logo from "@assets/img/praticoLogo.png"
 import type { DatePickerProps } from "antd"
 import { Button, Card, DatePicker, InputNumber, Layout, Select, Space, Table } from "antd"
 
@@ -39,7 +40,7 @@ export function InclusaoDeAjuste() {
     <Content
       className="site-layout-background"
       style={{
-        backgroundImage: "url(" + "" + ")",
+        backgroundImage: `url(${logo})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"

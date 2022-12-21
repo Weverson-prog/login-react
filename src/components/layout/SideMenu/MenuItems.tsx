@@ -10,6 +10,7 @@ import {
   RetweetOutlined,
   SettingOutlined
 } from "@ant-design/icons"
+import { useAuth } from "@context/AuthProvider"
 import { MenuProps } from "antd"
 import { NavLink } from "react-router-dom"
 
@@ -30,6 +31,14 @@ function getItem(
 }
 
 export const MenuItems: MenuItem[] = [
+  getItem(
+    "HOME",
+    "home",
+    <NavLink to="/" style={{ marginLeft: "0" }}>
+      <HomeOutlined />
+    </NavLink>
+  ),
+
   getItem("MN PRÁTICO", "sub1", null, [
     getItem("CARTAO", "1", <NavLink to="/cartao" style={{ marginLeft: "-25px" }}></NavLink>),
     getItem("MARKETPLACE", "2", <NavLink to="/marketplace" style={{ marginLeft: "-25px" }}></NavLink>)
@@ -39,14 +48,6 @@ export const MenuItems: MenuItem[] = [
     getItem("ADMINISTRADOR", "3", <NavLink to="/administrador" style={{ marginLeft: "-25px" }}></NavLink>),
     getItem("REDEFINIR SENHA", "4", <NavLink to="/redefinir_senha" style={{ marginLeft: "-25px" }}></NavLink>)
   ]),
-
-  getItem(
-    "HOME",
-    null,
-    <NavLink to="/" style={{ marginLeft: "0" }}>
-      <HomeOutlined />
-    </NavLink>
-  ),
 
   getItem(
     "CONCILIAÇÃO",
@@ -123,7 +124,13 @@ export const MenuItems: MenuItem[] = [
   getItem(
     "LOGOUT",
     null,
-    <NavLink to="/login" style={{ marginLeft: "0", marginBottom: "7px" }}>
+    <NavLink
+      onClick={() => {
+        useAuth().logOut()
+      }}
+      to="/login"
+      style={{ marginLeft: "0", marginBottom: "7px" }}
+    >
       <LogoutOutlined />
     </NavLink>
   )

@@ -1,8 +1,8 @@
 import { BarChartOutlined, SearchOutlined } from "@ant-design/icons"
+import logo from "@assets/img/praticoLogo.png"
 import type { DatePickerProps } from "antd"
 import { Button, Card, Checkbox, DatePicker, Input, InputNumber, Layout, Select, Space, Table } from "antd"
-
-import type { CheckboxChangeEvent } from "antd/es/checkbox"
+import { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 const gridStyle: React.CSSProperties = {
   width: "50%",
@@ -53,7 +53,7 @@ export function Conciliacao() {
     <Content
       className="site-layout-background"
       style={{
-        backgroundImage: "url(" + "" + ")",
+        backgroundImage: `url(${logo})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"

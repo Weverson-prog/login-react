@@ -1,12 +1,12 @@
+import { AuthProvider } from "@context/AuthProvider"
+import { Loading, PageLayout } from "@layout/index"
+import { Login } from "@pages/index"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Loading, PageLayout } from "./components/layout"
-import { Login } from "./components/pages"
-import { AuthProvider } from "./context/AuthProvider"
 import { RoutesList } from "./RoutesList"
 
 const router = createBrowserRouter([
   {
-    path: "login",
+    path: "/login",
     element: <Login />
   },
   {

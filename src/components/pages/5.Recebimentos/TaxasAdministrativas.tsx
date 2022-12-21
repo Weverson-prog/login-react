@@ -1,7 +1,8 @@
+import logo from "@assets/img/praticoLogo.png"
 import type { DatePickerProps } from "antd"
 import { Button, Card, Checkbox, DatePicker, Input, Layout, Radio, Select, Space, Table } from "antd"
 
-import type { CheckboxChangeEvent } from "antd/es/checkbox"
+import type { CheckboxChangeEvent } from "antd/lib/checkbox"
 
 export function TaxasAdministrativas() {
   const { Content } = Layout
@@ -48,7 +49,7 @@ export function TaxasAdministrativas() {
     <Content
       className="site-layout-background"
       style={{
-        backgroundImage: "url(" + "" + ")",
+        backgroundImage: `url(${logo})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat"

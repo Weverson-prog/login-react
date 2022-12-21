@@ -10,13 +10,16 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
+    "@tanstack/react-query": "^4.20.4",
+    "@types/node": "^18.11.17",
     "antd": "latest-4",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "react": "latest",
     "react-dom": "latest",
     "react-google-charts": "^4.0.0",
-    "react-router-dom": "^6.5.0"
+    "react-router-dom": "^6.5.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.6",

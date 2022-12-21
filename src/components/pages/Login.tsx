@@ -1,21 +1,20 @@
+import "@assets/css/styles.css"
+import logo from "@assets/img/praticoLogo.png"
+import { LoadingModal } from "@components/layout/LoadingModal"
+import { useAuth } from "@context/AuthProvider"
+import { userLogin } from "@context/types"
 import { Button, Form, Input, message } from "antd"
-import { useNavigate } from "react-router-dom"
-import "../../assets/css/styles.css"
-import logo from "../../assets/img/pratico_logo_nome_baixo arrumada.png"
-import { useAuth } from "../../context/AuthProvider/useAuth"
+import { Navigate } from "react-router-dom"
 
 export const Login = () => {
   const auth = useAuth()
-  const navigate = useNavigate()
-  async function onFinish(values: { email: string; password: string }) {
-    try {
-      await auth.authenticated(values.email, values.password)
-      console.log("logado")
-      return navigate("/")
-    } catch (error) {
-      message.error("Invalid email or Password")
-    }
+  const { isError, isLoading, isSuccess } = auth.userMutation
+  function onFinish({ email, password }: userLogin) {
+    auth.logIn(email, password)
+    if (isError) message.error("Usuário ou senha inválidos")
   }
+
+  if (isSuccess) return <Navigate to="/" />
 
   return (
     <div className="main-container">
@@ -36,7 +35,15 @@ export const Login = () => {
               <Input.Password placeholder="Password" style={{ borderRadius: "5px" }} />
             </Form.Item>
 
-            <div className="container-login-form-btn">
+            <div
+              className="container-login-form-btn"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               <Button
                 type="primary"
                 htmlType="submit"
@@ -45,6 +52,7 @@ export const Login = () => {
                 Login
               </Button>
             </div>
+            {isLoading && <LoadingModal />}
           </Form>
         </div>
       </div>
