@@ -1,5 +1,5 @@
 import { AutoComplete, Button, Card, Checkbox, DatePicker, Layout, Select, Space, Table } from "antd"
-import type { CheckboxValueType } from "antd/es/checkbox/Group"
+import type { CheckboxValueType } from "antd/lib/checkbox/Group"
 import { useState } from "react"
 
 interface DataType {

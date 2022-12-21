@@ -1,3 +1,4 @@
+import { useAuth } from "@context/AuthProvider"
 import { WelcomeText } from "../WelcomeText"
 
 export function Home() {

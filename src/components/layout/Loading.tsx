@@ -1,16 +1,16 @@
-import { Spin } from "antd"
+import { LoadingOutlined } from "@ant-design/icons"
+import { Content } from "antd/lib/layout/layout"
 
 export function Loading() {
   return (
-    <div
+    <Content
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        height: "100vh"
+        alignItems: "center"
       }}
     >
-      <Spin size="large" />
-    </div>
+      <LoadingOutlined spin style={{ fontSize: 128, color: "hsl(200, 100%, 50%)" }} />
+    </Content>
   )
 }
