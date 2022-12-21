@@ -1,20 +1,15 @@
 import "@assets/css/styles.css"
 import logo from "@assets/img/praticoLogo.png"
-import { LoadingModal } from "@components/layout/LoadingModal"
 import { useAuth } from "@context/AuthProvider"
-import { userLogin } from "@context/types"
-import { Button, Form, Input, message } from "antd"
-import { Navigate } from "react-router-dom"
+import { UserTokenMutationProps } from "@context/types"
+import { Button, Form, Input } from "antd"
 
 export const Login = () => {
   const auth = useAuth()
-  const { isError, isLoading, isSuccess } = auth.userMutation
-  function onFinish({ email, password }: userLogin) {
-    auth.logIn(email, password)
-    if (isError) message.error("Usuário ou senha inválidos")
-  }
 
-  if (isSuccess) return <Navigate to="/" />
+  function onFinish({ email, password }: UserTokenMutationProps) {
+    auth.logIn({ email, password })
+  }
 
   return (
     <div className="main-container">
@@ -52,7 +47,7 @@ export const Login = () => {
                 Login
               </Button>
             </div>
-            {isLoading && <LoadingModal />}
+            {/* {isLoading && <LoadingModal />} */}
           </Form>
         </div>
       </div>

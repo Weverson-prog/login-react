@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons"
 import { useAuth } from "@context/AuthProvider"
 import { MenuProps } from "antd"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 type MenuItem = Required<MenuProps>["items"][number]
 
@@ -28,6 +28,16 @@ function getItem(
     icon,
     children
   } as MenuItem
+}
+
+function LogoutButton() {
+  let { logOut } = useAuth()
+
+  return (
+    <NavLink onClick={() => logOut()} to="/login" style={{ marginLeft: "0", marginBottom: "7px" }}>
+      <LogoutOutlined />
+    </NavLink>
+  )
 }
 
 export const MenuItems: MenuItem[] = [
@@ -121,17 +131,5 @@ export const MenuItems: MenuItem[] = [
     getItem("VENDAS POR MÊS", "29", <NavLink to="/vendas_por_mes" style={{ marginLeft: "-25px" }}></NavLink>)
   ]),
 
-  getItem(
-    "LOGOUT",
-    null,
-    <NavLink
-      onClick={() => {
-        useAuth().logOut()
-      }}
-      to="/login"
-      style={{ marginLeft: "0", marginBottom: "7px" }}
-    >
-      <LogoutOutlined />
-    </NavLink>
-  )
+  getItem("LOGOUT", null, <LogoutButton />)
 ]
