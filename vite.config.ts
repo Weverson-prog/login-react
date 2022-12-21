@@ -4,9 +4,6 @@ import path from "node:path"
 
 export default defineConfig({
   plugins: [react()],
-  ssr: {
-    noExternal: ["react", "react-dom"]
-  },
   resolve: {
     alias: {
       "@services": path.resolve(__dirname, "./src/services"),
