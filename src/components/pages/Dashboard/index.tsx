@@ -7,6 +7,8 @@ import Chart from "react-google-charts";
 import { Root } from "../../../context/AuthProvider/types";
 import { getCard } from "../../../context/AuthProvider/getDash";
 import { OpeAnalytic, OpeSynthetic } from "./OpeList";
+import { ErpAnalytic, ErpSynthetic } from "./ErpList";
+
 
 interface DataType {
   key: string;
@@ -97,13 +99,16 @@ export function Dashboard() {
       };
     }
   );
-
+  /*edit pizza*/
   const pieChartOptions = {
     title: "Adquirente - Vendas por Operadora",
     vAxis: { title: "valores" },
     hAxis: { title: "dias" },
     seriesType: "bars",
     series: { 25: { type: "" } },
+    width: 600,
+    height: 600,
+
   };
 
   const columnChartOptions = {
@@ -126,6 +131,8 @@ export function Dashboard() {
       dados?.sales_operators_operator[1].amount,
     ],
   ];
+
+  /*fim edit pizza*/
   const columnChartData = [
     [
       "dias",
@@ -228,58 +235,55 @@ export function Dashboard() {
         </div>
       </Card>
       {/*fim cards*/}
-      <Col>
-        <Card
-          className="table-pizza"
-          style={{
-            marginTop: "-22px",
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            border: "none",
-            alignItems: "center",
-            justifyContent: "space-between",
-            margin: "0",
-            marginBottom: "-400px",
-          }}
-        >
-          <Content className="content-pizza-tabela">
-            {" "}
-            {/*grafico pizza e tabela*/}
-            <Row>
-              <Col xs={24}>
-                <Card
-                  className="table"
-                  style={{ width: "201.2%", margin: "0", padding: "0" }}
-                >
-                  <div className="tabela">
-                    {" "}
-                    {/*tabela*/}
-                    <Table dataSource={cardSalesData}>
-                      <ColumnGroup title="Vendas por Bandeira">
-                        <Column dataIndex="cardIcon" key="cardIcon" />
-                        <Column dataIndex="cardBrand" key="cardBrand" />
-                        <Column dataIndex="salesAmount" key="salesAmount" />
-                      </ColumnGroup>
-                    </Table>
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-          </Content>{" "}
-          {/*fim grafico pizza e tabela*/}
-          <Card
-            className="pizza-main"
-            style={{
-              width: "100%",
-              position: "relative",
-              bottom: "600px",
-              left: "1080px",
-              border: "none",
-              marginTop: "-5px",
-            }}
-          >
-            <div className="pizza">
+
+      <Content style={{ background: '#fff', display: 'flex', flexWrap: 'wrap', gridTemplateColumns: 'auto auto', gridRowGap:'20px', gridColumnGap: '5px', justifyContent: 'space-between', marginBottom: '65px', paddingRight:'80px' }}>
+        {" "}
+        {/*grafico pizza e tabela*/}
+        <Row>
+          <Col xs={24}>
+            <Card
+              className="table-main"
+              style={{
+                width: "200%",
+                height: "100%",
+                marginLeft: "25px",
+                marginRight: "50px",
+                flex: '1 1 100px',
+                tableLayout: 'fixed',
+              }}
+            >
+              <div className="tabela">
+                {" "}
+                {/*tabela*/}
+                <Table dataSource={cardSalesData}>
+                  <ColumnGroup title="Vendas por Bandeira">
+                    <Column dataIndex="cardIcon" key="cardIcon" />
+                    <Column dataIndex="cardBrand" key="cardBrand" />
+                    <Column dataIndex="salesAmount" key="salesAmount" />
+                  </ColumnGroup>
+                </Table>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+
+        {/*fim grafico pizza e tabela*/}
+        <Row>
+          <Col xs={24}>
+            <Card
+              className="pizza-main"
+              style={{
+                width: "100%",
+                height: "100%",
+                marginLeft: "-25px",
+                marginRight: "25px",
+                border: "none",
+                flex: '1 1 100px',
+                tableLayout: 'fixed',
+
+              }}
+            >
+
               {" "}
               {/*pizza*/}
               <Chart
@@ -287,12 +291,15 @@ export function Dashboard() {
                 data={pieChartData}
                 options={pieChartOptions}
                 width={"100%"}
-                height={"400px"}
+                height={"100%"}
               />
-            </div>
-          </Card>
-        </Card>
-      </Col>
+
+            </Card>
+          </Col>
+        </Row>
+
+      </Content>{" "}
+
       <Card style={{ border: "none", marginLeft: "-75px", marginTop: "-65px" }}>
         <Content>
           {" "}
@@ -314,7 +321,12 @@ export function Dashboard() {
         </Content>{" "}
         {/*fim grafico bar*/}
       </Card>
-      <Card>
+      <Card
+        className="ope-main"
+        style={{
+          width: "100%",
+
+        }}>
         <Card
           title={"PENDENTES DE CONCILIALÇÃO (OPE)"}
           style={{ alignContent: "center", overflow: "initial" }}
@@ -322,10 +334,30 @@ export function Dashboard() {
           <OpeSynthetic opeSyntheticList={dados.pending_synthetic_operator} />
         </Card>
         <Card
-          title={"PENDENTES DE CONCILIALÇÃO (OPE)"}
-          style={{ alignContent: "center", overflow: "initial" }}
+          title={"PENDENTES DE CONCILIALÇÃO DETALHADA (OPE)"}
+          style={{ alignContent: "center", overflow: "initial", marginTop: "10px", marginBottom: "-15px" }}
         >
           <OpeAnalytic opeAnalyticList={dados.pending_analytic_operator} />
+        </Card>
+      </Card>
+
+      <Card
+        className="erp-main"
+        style={{
+          width: "100%",
+
+        }}>
+        <Card
+          title={"PENDENTES DE CONCILIALÇÃO (ERP)"}
+          style={{ alignContent: "center", overflow: "initial", marginTop: "-15px" }}
+        >
+          <ErpSynthetic erpSyntheticList={dados.pending_synthetic_erp} />
+        </Card>
+        <Card
+          title={"PENDENTES DE CONCILIALÇÃO DETALHADA (ERP)"}
+          style={{ alignContent: "center", overflow: "initial", marginTop: "10px", }}
+        >
+          <ErpAnalytic erpAnalyticList={dados.pending_analytic_erp} />
         </Card>
       </Card>
     </Content>
