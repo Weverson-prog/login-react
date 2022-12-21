@@ -1,4 +1,5 @@
 import { Loading } from "@components/layout"
+import { useAuth } from "@context/AuthProvider"
 import { getDashboardInfo } from "@services/api"
 import { useQuery } from "@tanstack/react-query"
 import { Card, Col, Layout, Row, Statistic, Table } from "antd"
@@ -13,9 +14,13 @@ interface CardSalesData {
 }
 
 export function Dashboard() {
+  const { user } = useAuth()
   const { Content } = Layout
   const { Column, ColumnGroup } = Table
-  const { data, isLoading, error } = useQuery({ queryKey: ["dashboard"], queryFn: () => getDashboardInfo() })
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["dashboard"],
+    queryFn: () => getDashboardInfo(user?.token!)
+  })
 
   if (isLoading || !data) return <Loading />
   if (error) {

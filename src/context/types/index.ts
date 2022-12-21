@@ -1,18 +1,13 @@
 import { UserTokenInfo } from "@services/schemas/apiResponses"
-import { UseMutationResult } from "@tanstack/react-query"
 
-export type userLogin = {
-  email: string
-  password: string
-}
+export type UserTokenMutationProps = { email: string; password: string }
 
 export interface IAuthContext {
-  user: UserTokenInfo | null
-  userMutation: UseMutationResult<UserTokenInfo, unknown, userLogin, unknown>
-  logIn: (email: string, password: string) => void
+  logIn: ({ email, password }: UserTokenMutationProps) => void
   logOut: () => void
+  user: UserTokenInfo | null
 }
 
 export interface IAuthProvider {
-  children?: JSX.Element
+  children?: React.ReactNode
 }
