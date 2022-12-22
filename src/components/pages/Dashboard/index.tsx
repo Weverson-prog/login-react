@@ -92,7 +92,13 @@ export function Dashboard() {
       key: index,
       cardBrand: card.brand,
       salesAmount: card.amount.toFixed(2),
-      cardIcon: <img src={"/src/assets/img/flags/flags/flags/" + card.brand + ".png"} style={{ width: "40px" }} />
+      cardIcon: (
+        <img
+          src={"/src/assets/img/flags/flags/flags/" + card.brand + ".png"}
+          alt={card.brand}
+          style={{ width: "40px" }}
+        />
+      )
     }))
 
     return (
@@ -247,7 +253,6 @@ export function Dashboard() {
         <Card title={"PENDENTES DE CONCILIALÇÃO (OPE)"}>
           <OpeSynthetic opeSyntheticList={data.pending_synthetic_operator} />
         </Card>
-        Figment Learn
         <Card title={"PENDENTES DE CONCILIALÇÃO DETALHADA (OPE)"} style={{ marginTop: "20px" }}>
           <OpeAnalytic opeAnalyticList={data.pending_analytic_operator} />
         </Card>
