@@ -1,7 +1,8 @@
 import { BellOutlined } from "@ant-design/icons"
 import { Button } from "antd"
 import { Header } from "antd/lib/layout/layout"
-import notification, { NotificationPlacement } from "antd/lib/notification"
+import notification from "antd/lib/notification"
+import type { NotificationPlacement } from "antd/lib/notification/interface"
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
