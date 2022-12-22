@@ -1,6 +1,6 @@
 import { getUserTokenInfo } from "@services/api"
 import { schemaUserTokenInfo, UserTokenInfo } from "@services/schemas/apiResponses"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createContext, useContext, useState } from "react"
 import { IAuthContext, IAuthProvider, UserTokenMutationProps } from "./types"
 
@@ -22,13 +22,15 @@ export function AuthProvider({ children }: IAuthProvider) {
     localStorage.setItem(userLocalStorageKey, JSON.stringify(userTokenInfo))
   }
 
+  const queryClient = useQueryClient()
+
   const userMutation = useMutation({
     mutationKey: ["userTokenInfo"],
     mutationFn: ({ email, password }: UserTokenMutationProps) => getUserTokenInfo(email, password),
     onSuccess: userTokenInfo => {
       setUser(userTokenInfo)
       setUserLocalStorage(userTokenInfo)
-      console.log("User logged in")
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] })
     },
     cacheTime: tokenExpireTime
   })

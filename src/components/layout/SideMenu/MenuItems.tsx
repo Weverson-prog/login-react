@@ -30,16 +30,6 @@ function getItem(
   } as MenuItem
 }
 
-function LogoutButton() {
-  let { logOut } = useAuth()
-
-  return (
-    <NavLink onClick={() => logOut()} to="/login" style={{ marginLeft: "0", marginBottom: "7px" }}>
-      <LogoutOutlined />
-    </NavLink>
-  )
-}
-
 export const MenuItems: MenuItem[] = [
   getItem(
     "HOME",
@@ -61,8 +51,8 @@ export const MenuItems: MenuItem[] = [
 
   getItem(
     "CONCILIAÇÃO",
-    null,
-    <NavLink to="/conciliacao" style={{ marginLeft: "0" }}>
+    "conciliacao",
+    <NavLink to="/conciliacao">
       <RetweetOutlined />
     </NavLink>
   ),
@@ -108,7 +98,7 @@ export const MenuItems: MenuItem[] = [
 
   getItem(
     "DASHBOARD",
-    null,
+    "dashboard",
     <NavLink to="/dashboard" style={{ marginLeft: "0" }}>
       <DashboardOutlined />
     </NavLink>
@@ -124,12 +114,16 @@ export const MenuItems: MenuItem[] = [
     getItem("INCLUSÃO DE TÍTULOS", "25", <NavLink to="/inclusao_de_titulos" style={{ marginLeft: "-25px" }}></NavLink>)
   ]),
 
-  getItem("OUTROS", "sub7", <SettingOutlined />, [
-    getItem("UPLOAD DE ARQUIVOS", "26", <NavLink to="/upload_de_arquivos" style={{ marginLeft: "-25px" }}></NavLink>),
+  getItem("OUTROS", "outros", <SettingOutlined />, [
+    getItem(
+      "UPLOAD DE ARQUIVOS",
+      "upload de arquivos",
+      <NavLink to="/upload_de_arquivos" style={{ marginLeft: "-25px" }}></NavLink>
+    ),
     getItem("MENSAGENS", "27", <NavLink to="/mensagens" style={{ marginLeft: "-25px" }}></NavLink>),
     getItem("EXCLUIR CONCILIADOS", "28", <NavLink to="/excluir_conciliados" style={{ marginLeft: "-25px" }}></NavLink>),
     getItem("VENDAS POR MÊS", "29", <NavLink to="/vendas_por_mes" style={{ marginLeft: "-25px" }}></NavLink>)
   ]),
 
-  getItem("LOGOUT", null, <LogoutButton />)
+  getItem("LOGOUT", "logout", <LogoutOutlined />)
 ]

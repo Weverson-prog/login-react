@@ -1,14 +1,23 @@
 import logo from "@assets/img/praticoLogo.png"
-import { Layout, Menu } from "antd"
+import { useAuth } from "@context/AuthProvider"
+import { Layout, Menu, MenuProps } from "antd"
 import { useState } from "react"
 import { MenuItems } from "./MenuItems"
 
 export function SideMenu() {
+  const { logOut } = useAuth()
   const [collapsed, setCollapsed] = useState(false)
   const { Sider } = Layout
   function handleCollapse(value: boolean) {
     setCollapsed(value)
   }
+
+  const [current, setCurrent] = useState("home")
+  const onClick: MenuProps["onClick"] = e => {
+    setCurrent(e.key)
+    if (e.key === "logout") logOut()
+  }
+
   return (
     <Sider
       collapsible
@@ -33,7 +42,14 @@ export function SideMenu() {
           backgroundImage: `url(${logo})`
         }}
       />
-      <Menu theme="light" defaultSelectedKeys={["home"]} mode="inline" items={MenuItems} />
+      <Menu
+        theme="light"
+        onClick={onClick}
+        selectedKeys={[current]}
+        defaultSelectedKeys={["home"]}
+        mode="inline"
+        items={MenuItems}
+      />
       <div
         style={{
           height: "48px"

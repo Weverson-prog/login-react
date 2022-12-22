@@ -12,13 +12,13 @@
     "@ant-design/icons": "^4.8.0",
     "@tanstack/react-query": "^4.20.4",
     "@types/node": "^18.11.17",
-    "antd": "^4.24.5",
+    "antd": "^5.1.0",
     "axios": "^1.2.1",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.0",
-    "react-router-dom": "^6.5.0",
+    "react-router-dom": "^6.6.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {
@@ -29,6 +29,6 @@
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "typescript": "^4.9.4",
-    "vite": "^4.0.2"
+    "vite": "^4.0.3"
   }
 }

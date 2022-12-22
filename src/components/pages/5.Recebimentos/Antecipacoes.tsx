@@ -49,10 +49,7 @@ export function Antecipacoes() {
     <Content
       className="site-layout-background"
       style={{
-        backgroundImage: `url(${logo})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat"
+        backgroundColor: "#EFF2F5"
       }}
     >
       <article>
