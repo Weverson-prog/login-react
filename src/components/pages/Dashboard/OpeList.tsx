@@ -14,8 +14,6 @@ export function OpeSynthetic({ opeSyntheticList }: OpeSyntheticProps) {
     nrParcelas: number;
   }
 
-  <h1>akoi</h1>;
-
   const opeSyntheticColumns: ColumnsType<OpeSynthecticData> = [
     {
       title: "NOME",
