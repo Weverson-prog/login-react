@@ -2,11 +2,21 @@ import { Loading } from "@components/layout"
 import { useAuth } from "@context/AuthProvider"
 import { getDashboardInfo } from "@services/api"
 import { useQuery } from "@tanstack/react-query"
-import { Card, Col, Layout, Row, Statistic, Table } from "antd"
+import { Button, Card, Col, Layout, Row, Statistic, Table } from "antd"
 import Chart from "react-google-charts"
 import { ErpAnalytic, ErpSynthetic } from "./ErpList"
 import { OpeAnalytic, OpeSynthetic } from "./OpeList"
+import React from 'react';
+import { DatePicker, Space, } from 'antd';
 
+interface DataType {
+  key: React.Key
+  DataInicial: string
+  Operadora: string
+  Contrato: string
+  Emrpesa: string
+  NSU: string
+}
 interface CardSalesData {
   key: React.Key
   cardIcon: JSX.Element
@@ -19,11 +29,24 @@ export function Dashboard() {
   const { Content } = Layout
   const { Column, ColumnGroup } = Table
 
+  const { RangePicker } = DatePicker;
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["dashboard"],
     queryFn: () => getDashboardInfo(user?.token!),
     onSuccess: data => console.log(data)
   })
+
+  const data1: DataType[] = [
+    {
+      key: "1",
+      DataInicial: "",
+      Operadora: "",
+      Contrato: "",
+      Emrpesa: "",
+      NSU: ""
+    }
+  ]
 
   if (isLoading || !data) return <Loading />
 
@@ -36,6 +59,9 @@ export function Dashboard() {
       </Content>
     )
   }
+
+
+
 
   const CardInfoGridComponent = () => {
     const cardSalesColumns = [
@@ -74,16 +100,67 @@ export function Dashboard() {
         valueStyle: { color: "#3f8600" }
       }
     ]
+
+    function mostrardiv() {
+      let element = document.getElementById("filter");
+      if (element?.style.display == "none") {
+        console.log("estou aqui");
+        element.style.display = "block";
+      } else if (element?.style.display == "block") {
+        console.log("alou aqui");
+        element.style.display = "none";
+      }
+    }
+
     return (
+
+
       <>
-        {cardSalesColumns.map(({ title, value, precision, valueStyle, suffix }, index) => (
-          <Col span={8} key={index}>
-            <Card style={{ marginTop: index > 2 ? "15px" : "0px" }}>
-              <Statistic title={title} value={value} precision={precision} valueStyle={valueStyle} suffix={suffix} />
-            </Card>
-          </Col>
-        ))}
+
+
+        <div id="filter" style={{
+          marginLeft: "130vh", paddingBottom: "15px", display: "block",}}>
+          {/*Filtro de data, incia aqui */}
+          <Table style={{ marginLeft: "-129vh", marginBottom: '5px', display: "block", }} pagination={false} dataSource={data1}>
+            <Column
+
+              dataIndex="DataInicial"
+              key="DataInicial"
+              render={(_: any, record: DataType) => (
+                <Space direction="vertical" size={12} style={{ width: 216, border: 'none', }}>
+                  <RangePicker />
+                </Space>
+              )} />
+          </Table>
+          <div>
+            <Button style={{
+              marginLeft: "-110vh",  tableLayout: "fixed", }} type="primary">
+              <a>Buscar</a>
+            </Button>
+          </div>
+        </div>
+
+        <Button
+          onClick={mostrardiv}
+          id="show-btn"
+          type="primary"
+          icon={"Filtrar"}
+          size="large"
+          style={{ width: 100, marginLeft: "160vh", marginBottom: "15px" }}
+        />
+
+        {
+          cardSalesColumns.map(({ title, value, precision, valueStyle, suffix }, index) => (
+            <Col span={8} key={index}>
+              <Card style={{ marginTop: index > 2 ? "15px" : "0px" }}>
+                <Statistic title={title} value={value} precision={precision} valueStyle={valueStyle} suffix={suffix} />
+              </Card>
+            </Col>
+          ))
+        }
       </>
+
+
     )
   }
 
@@ -142,6 +219,7 @@ export function Dashboard() {
       />
     )
   }
+
 
   const BarChartComponent = () => {
     const columnChartData = [
