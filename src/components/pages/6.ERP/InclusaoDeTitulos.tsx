@@ -1,4 +1,4 @@
-import { SearchOutlined } from "@ant-design/icons"
+import { SearchOutlined, BarChartOutlined } from "@ant-design/icons"
 import logo from "@assets/img/praticoLogo.png"
 import type { DatePickerProps } from "antd"
 import { Button, Card, DatePicker, Layout, Select, Space, Table } from "antd"
@@ -36,16 +36,35 @@ export function InclusaoDeTitulos() {
     console.log(date, dateString)
   }
 
+  function mostrardiv() {
+    let element = document.getElementById("filter");
+    if (element?.style.display == "none") {
+      console.log("estou aqui");
+      element.style.display = "block";
+    } else if (element?.style.display == "block") {
+      console.log("alou aqui");
+      element.style.display = "none";
+    }
+  }
+
   return (
     <Content
       className="site-layout-background"
       style={{
-        backgroundColor: "#EFF2F5"
+        backgroundColor: "#fff"
       }}
     >
       <article>
-        <Card style={{ backgroundColor: "#f0f5ff", margin: "20px 24px 0", overflow: "initial" }}>
-          <div style={{ margin: "20px  0" }}>
+        <Card style={{ backgroundColor: "#fff", margin: "20px 24px 0", overflow: "initial" }}>
+          <Button
+            onClick={mostrardiv}
+            id="show-btn"
+            type="primary"
+            icon={<BarChartOutlined />}
+            size="large"
+            style={{ marginLeft: "165vh", marginBottom: "15px" }}
+          />
+          <div id="filter" style={{ margin: "20px  0", display: "none" }}>
             <Table pagination={false} dataSource={data}>
               <Column
                 title="DATA INCIAL"
@@ -217,10 +236,7 @@ export function InclusaoDeTitulos() {
               />
             </Table>
             <br></br>
-            <Button type="primary" shape="round" icon={"CONFIRMAR"} size={"middle"} style={{ width: 150 }} />
-            <br></br>
-            <br></br>
-            <Button icon={<SearchOutlined />} size={"middle"} style={{ width: 150 }} />
+            <Button type="primary" icon={"CONFIRMAR"} size={"middle"} style={{ width: 150 }} />
           </div>
         </Card>
       </article>

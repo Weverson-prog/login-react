@@ -1,5 +1,6 @@
 import { Button, Card, Checkbox, DatePicker, Layout, Select, Space, Table } from "antd"
 import type { CheckboxValueType } from "antd/lib/checkbox/Group"
+import { BarChartOutlined, } from "@ant-design/icons";
 
 export function VendasCanceladas() {
   const { Content } = Layout
@@ -13,6 +14,18 @@ export function VendasCanceladas() {
     Emrpesa: string
     NSU: string
   }
+
+  function mostrardiv() {
+    let element = document.getElementById("filter");
+    if (element?.style.display == "none") {
+      console.log("estou aqui");
+      element.style.display = "block";
+    } else if (element?.style.display == "block") {
+      console.log("alou aqui");
+      element.style.display = "none";
+    }
+  }
+
 
   const data: DataType[] = [
     {
@@ -39,7 +52,15 @@ export function VendasCanceladas() {
   return (
     <Content style={{ background: "#fff" }}>
       <Card>
-        <div>
+        <Button
+          onClick={mostrardiv}
+          id="show-btn"
+          type="primary"
+          icon={<BarChartOutlined />}
+          size="large"
+          style={{ marginLeft: "170vh", marginBottom: "15px" }}
+        />
+        <div id="filter" style={{ display: "none" }}>
           <Table pagination={false} dataSource={data}>
             <Column
               title="Data Inicial - Data Final"
@@ -95,12 +116,11 @@ export function VendasCanceladas() {
               />
             </Table>
           </div>
-        </div>
-
-        <div>
-          <Button type="primary">
-            <a>Filtrar Dados</a>
-          </Button>
+          <div>
+            <Button type="primary">
+              <a>Filtrar Dados</a>
+            </Button>
+          </div>
         </div>
       </Card>
     </Content>

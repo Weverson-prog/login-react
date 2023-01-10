@@ -1,4 +1,4 @@
-import { DownloadOutlined } from "@ant-design/icons"
+import { DownloadOutlined, BarChartOutlined } from "@ant-design/icons"
 import logo from "@assets/img/praticoLogo.png"
 import type { DatePickerProps } from "antd"
 import { Button, Card, DatePicker, InputNumber, Layout, Select, Space, Table } from "antd"
@@ -36,16 +36,36 @@ export function BaixaTitulosReceber() {
     console.log(date, dateString)
   }
 
+  function mostrardiv() {
+    let element = document.getElementById("filter");
+    if (element?.style.display == "none") {
+      console.log("estou aqui");
+      element.style.display = "block";
+    } else if (element?.style.display == "block") {
+      console.log("alou aqui");
+      element.style.display = "none";
+    }
+  }
+
+
   return (
     <Content
       className="site-layout-background"
       style={{
-        backgroundColor: "#EFF2F5"
+        backgroundColor: "#fff"
       }}
     >
       <article>
-        <Card style={{ backgroundColor: "#f0f5ff", margin: "20px 24px 0", overflow: "initial" }}>
-          <div style={{ margin: "20px  0" }}>
+        <Card style={{ backgroundColor: "#fff", margin: "20px 24px 0", overflow: "initial" }}>
+          <Button
+            onClick={mostrardiv}
+            id="show-btn"
+            type="primary"
+            icon={<BarChartOutlined />}
+            size="large"
+            style={{ marginLeft: "160vh", marginBottom: "15px" }}
+          />
+          <div id="filter" style={{ margin: "20px  0", display:"none" }}>
             <Table pagination={false} dataSource={data}>
               <Column
                 title="DATA"
@@ -182,7 +202,7 @@ export function BaixaTitulosReceber() {
               />
             </Table>
             <br></br>
-            <Button type="primary" shape="round" icon={"Filtrar"} size="large" style={{ width: 100 }} />
+            <Button type="primary" icon={"Filtrar"} size="large" style={{ width: 100 }} />
             <br></br>
             <br></br>
             <InputNumber prefix="R$" style={{ width: "20%" }} />

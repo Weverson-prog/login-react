@@ -1,4 +1,5 @@
-import { Button, Card, Checkbox, Layout, Select, Space, Table } from "antd"
+import { Button, Card, Checkbox, Layout, Select, Space, Table, } from "antd"
+import { BarChartOutlined, SearchOutlined } from "@ant-design/icons";
 
 import type { CheckboxChangeEvent } from "antd/lib/checkbox/"
 
@@ -35,7 +36,21 @@ export function ConfigOperadoras() {
     }
   ]
 
+  function mostrardiv() {
+    let element = document.getElementById("filter");
+    if (element?.style.display == "none") {
+      console.log("estou aqui");
+      element.style.display = "block";
+    } else if (element?.style.display == "block") {
+      console.log("alou aqui");
+      element.style.display = "none";
+    }
+  }
+
   return (
+
+    
+    
     <Content
       className="site-layout-background"
       style={{
@@ -44,9 +59,21 @@ export function ConfigOperadoras() {
         backgroundRepeat: "no-repeat"
       }}
     >
+      
       <article>
-        <Card style={{ backgroundColor: "#f0f5ff", margin: "20px 24px 0", overflow: "initial" }}>
-          <div style={{ margin: "20px  0" }}>
+        <Card style={{ backgroundColor: "#FFF", margin: "20px 24px 0", overflow: "initial" }}>
+        <Button
+          onClick={mostrardiv}
+          id="show-btn"
+          type="primary"
+          icon={<BarChartOutlined/>}
+          size="large"
+          style={{marginLeft: "165vh", marginBottom: "15px" }}
+        />
+
+
+
+          <div id="filter"  style={{ margin: "20px  0", display:"none" }}>
             <Table pagination={false} dataSource={data}>
               <Column
                 title="OPERADORA"
@@ -119,7 +146,7 @@ export function ConfigOperadoras() {
               />
             </Table>
             <br></br>
-            <Button type="primary" shape="round" icon={"Filtrar"} size={"large"} style={{ width: 100 }} />
+            <Button type="primary" icon={"Filtrar"} size={"large"} style={{ width: 100 }} />
             <br></br>
             <br></br>
 

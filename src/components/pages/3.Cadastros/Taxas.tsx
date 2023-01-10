@@ -17,6 +17,7 @@ export function Taxas() {
 
   const onSearch = (value: string) => console.log(value)
   /*campo pesquisa fim*/
+  
 
   /*inicio tabela*/
   const { Column, ColumnGroup } = Table
